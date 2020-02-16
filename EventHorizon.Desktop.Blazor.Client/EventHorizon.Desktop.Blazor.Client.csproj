@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <RuntimeIdentifiers>win10-x64</RuntimeIdentifiers>
+        <UpToDateReloadFileTypes>$(UpToDateReloadFileTypes);*.cshtml;*.razor</UpToDateReloadFileTypes>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="WebWindow" Version="0.1.0-20191120.6" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\EventHorizon.Desktop.Blazor.Server\EventHorizon.Desktop.Blazor.Server.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Content Include="desktopsettings*.json" CopyToOutputDirectory="PreserveNewest" />
+        <Content Update="wwwroot/**" CopyToOutputDirectory="PreserveNewest" />
+        <!--Also publish static appsettings-->
+        <Content Include="..\EventHorizon.Desktop.Blazor.Server\appsettings*.json">
+            <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <!--Also publish static CSS assets from the Client project-->
+        <Content Include="..\EventHorizon.Desktop.Blazor.Server\wwwroot\**\*.*">
+            <Link>wwwroot\%(RecursiveDir)%(Filename)%(Extension)</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
+
+</Project>
